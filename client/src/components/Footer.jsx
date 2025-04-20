@@ -3,78 +3,105 @@ import React from "react";
 const Footer = () => {
   return (
     <>
-      <footer id="footer" className="relative w-full bg-[#f3e5dc]">
-        {/* Decorative Elements */}
-        <div className="foot foot1"></div>
-        <div className="foot foot2"></div>
-        <div className="foot foot3"></div>
+      <footer
+        id="footer"
+        className="bg-[#1f1f1f] text-white pt-16 pb-10 px-6 md:px-20 relative"
+      >
+        {/* Decorative Background Elements (can be replaced with custom styles or images) */}
+        <div className="absolute top-0 left-0 w-24 h-24 bg-amber-400/10 rounded-full blur-3xl -z-10"></div>
+        <div className="absolute top-10 right-0 w-32 h-32 bg-amber-400/10 rounded-full blur-2xl -z-10"></div>
 
-        {/* Footer Main Content */}
-        <div className="footer-items absolute bottom-0 w-full h-[38vh] flex justify-center gap-[5vw] px-4 py-10">
-          {/* Column 1 - Get in Touch */}
-          <div className="flex flex-col gap-5 w-[15vw] min-w-[200px]">
-            <h3 className="text-lg font-bold">Get in Touch</h3>
-            <p className="text-sm">Don't miss any new updates</p>
-            <form action="/Coffee/index.html" className="flex flex-col gap-4">
+        {/* Main Footer Grid */}
+        <div className="grid md:grid-cols-4 sm:grid-cols-2 gap-10 z-10 relative">
+          {/* Get in Touch */}
+          <div>
+            <h3 className="text-lg font-semibold mb-3">Get in Touch</h3>
+            <p className="text-sm mb-4">Don't miss any new updates</p>
+            <form className="flex flex-col gap-3">
               <input
                 type="email"
-                id="email-input"
                 placeholder="Enter your email"
                 required
-                className="p-2 border border-gray-400 rounded"
+                className="px-3 py-2 rounded bg-[#2a2a2a] text-sm outline-none focus:ring-2 focus:ring-amber-500"
               />
-              <input
+              <button
                 type="submit"
-                id="submit-btn"
-                value="Submit"
-                className="bg-yellow-600 text-white py-2 px-4 rounded cursor-pointer hover:bg-yellow-700 transition"
-              />
+                className="bg-amber-500 hover:bg-amber-600 text-sm py-2 rounded text-white"
+              >
+                Submit
+              </button>
             </form>
           </div>
 
-          {/* Column 2 - Menu */}
-          <div className="flex flex-col gap-5 w-[15vw] min-w-[200px]">
-            <h3 className="text-lg font-bold">Menu</h3>
-            <p>Home</p>
-            <p>Customize</p>
-            <p>Offers</p>
-            <p>Contact Us</p>
+          {/* Menu */}
+          <div>
+            <h3 className="text-lg font-semibold mb-3">Menu</h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <a href="#home" className="hover:text-amber-400">
+                  Home
+                </a>
+              </li>
+              <li>
+                <a href="#customize" className="hover:text-amber-400">
+                  Customize
+                </a>
+              </li>
+              <li>
+                <a href="#offers" className="hover:text-amber-400">
+                  Offers
+                </a>
+              </li>
+              <li>
+                <a href="#footer" className="hover:text-amber-400">
+                  Contact Us
+                </a>
+              </li>
+            </ul>
           </div>
 
-          {/* Column 3 - Help */}
-          <div className="flex flex-col gap-2 w-[15vw] min-w-[200px]">
-            <h3 className="text-lg font-bold">Help</h3>
-            {[
-              "FAQ",
-              "Terms & Conditions",
-              "Reporting",
-              "Documentation",
-              "Support Policy",
-              "Privacy",
-            ].map((item, idx) => (
-              <p key={idx} className="text-xs">
-                {item}
-              </p>
-            ))}
+          {/* Help */}
+          <div>
+            <h3 className="text-lg font-semibold mb-3">Help</h3>
+            <ul className="space-y-2 text-sm">
+              {[
+                "FAQ",
+                "Terms & Conditions",
+                "Reporting",
+                "Documentation",
+                "Support Policy",
+                "Privacy",
+              ].map((item, idx) => (
+                <li key={idx} className="hover:text-amber-400 cursor-pointer">
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Column 4 - Team Solutions */}
-          <div className="flex flex-col gap-5 w-[15vw] min-w-[200px]">
-            <h3 className="text-lg font-bold">Team Solutions</h3>
-            <div className="flex gap-3">
+          {/* Team Solutions */}
+          <div>
+            <h3 className="text-lg font-semibold mb-3">Team Solutions</h3>
+            <div className="flex gap-3 flex-wrap">
               {[...Array(4)].map((_, i) => (
                 <div
                   key={i}
-                  className="w-[30px] h-[30px] bg-white rounded-full"
-                ></div>
+                  className="w-10 h-10 bg-[#2a2a2a] rounded-lg flex items-center justify-center text-sm text-gray-300"
+                >
+                  {i + 1}
+                </div>
               ))}
             </div>
           </div>
         </div>
 
         {/* Decorative Coffee Cup Image */}
-        <div className="absolute -bottom-[210px] -right-[70px]">
-          <img src="Images/coffeecup.png" alt="coffee cup" />
+        <div className="mt-12 flex justify-center">
+          <img
+            src="/images/coffeecup.png"
+            alt="coffee cup"
+            className="w-24 h-auto opacity-70"
+          />
         </div>
       </footer>
     </>
