@@ -9,7 +9,7 @@ const HeroSection = () => {
   return (
     <div className="overflow-hidden">
       <Home />
-      {/* <PopularItems /> */}
+      <PopularItems />
       <RegularMenu />
       <Customize />
       <Offers />
