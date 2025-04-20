@@ -29,7 +29,7 @@ const Customize = () => {
 
   return (
     <>
-      <section id="customize" className="py-16 bg-white dark:bg-neutral-900">
+      <section id="customize" className="py-16 bg-[#28140e]">
         <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Ingredient Selector */}
           <div className="relative flex flex-col justify-center items-center rounded-full bg-gradient-to-r from-amber-400 to-amber-600 p-8 w-full lg:w-2/3 h-96 mb-8 lg:mb-0">

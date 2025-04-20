@@ -1,43 +1,86 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+
+const images = [
+  "/images/co1.jpg",
+  "/images/co2.jpg",
+  "/images/co3.jpg",
+  "/images/co4.jpg",
+  "/images/co5.jpg",
+  "/images/co6.jpg",
+  "/images/co7.jpg",
+  "/images/co8.jpg",
+  "/images/co9.jpg",
+  "/images/co10.jpg",
+  "/images/co11.jpg",
+];
 
 const PopularItems = () => {
-  const images = [
-    "co1.jpg",
-    "co2.jpg",
-    "co3.jpg",
-    "co4.jpg",
-    "co5.jpg",
-    "co6.jpg",
-    "co7.jpg",
-    "co8.jpg",
-    "co9.jpg",
-    "co11.jpg",
-  ];
   return (
-    <>
-      <section id="special-menu" className="py-16 bg-white dark:bg-neutral-900">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-10 text-neutral-800 dark:text-white">
-            Popular Items
-          </h2>
+    <section id="special-menu" className="px-2 md:px-5">
+      <h2 className="text-3xl md:text-4xl font-bold text-center mt-5 mb-2 text-yellow-950/85">
+        Popular Items
+      </h2>
+      <div className="relative overflow-hidden py-5">
+        <div className="relative">
+          {/* Inline animation with responsive speed */}
+          <style>
+            {`
+          @keyframes scroll-slow {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          @keyframes scroll-fast {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-            {images.map((img, index) => (
-              <div key={index} className="overflow-hidden rounded-lg shadow-md">
+          .scrolling-desktop {
+            animation: scroll-slow 25s linear infinite;
+          }
+
+          .scrolling-mobile {
+            animation: scroll-fast 20s linear infinite;
+          }
+
+          .group:hover .scrolling-desktop,
+          .group:hover .scrolling-mobile {
+            animation-play-state: paused;
+          }
+        `}
+          </style>
+
+          <div className="group">
+            {/* Desktop */}
+            <div className="hidden sm:flex gap-3 w-max scrolling-desktop">
+              {[...images, ...images].map((image, index) => (
                 <img
-                  src={`Images/${img}`}
-                  alt={`Popular item ${index + 1}`}
-                  className="w-full h-48 object-cover"
+                  draggable="false"
+                  key={index}
+                  loading="lazy"
+                  src={image}
+                  alt={`image ${index}`}
+                  className="w-50 lg:w-60 opcaity-90 hover:opacity-100 hover:scale-105 hover:brightness-110 hover:contrast-125 transition-transform duration-200 rounded-lg"
                 />
-                <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 text-white text-lg font-bold opacity-0 hover:opacity-100 transition-opacity duration-300">
-                  {`Item ${index + 1}`}
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
+
+            {/* Mobile */}
+            <div className="flex sm:hidden gap-2 w-max scrolling-mobile">
+              {[...images, ...images].map((image, index) => (
+                <img
+                  key={index}
+                  draggable="false"
+                  loading="lazy"
+                  src={image}
+                  alt={`image ${index}`}
+                  className="w-30 rounded-lg"
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 
