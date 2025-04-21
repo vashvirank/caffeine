@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <>
       <footer
-        id="footer"
+        id="Contact"
         className="bg-[#1f1f1f] text-white pt-16 pb-10 px-6 md:px-20 relative"
       >
         {/* Decorative Background Elements (can be replaced with custom styles or images) */}

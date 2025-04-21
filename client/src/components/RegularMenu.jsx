@@ -6,7 +6,7 @@ const RegularMenu = () => {
 
   return (
     <>
-      <section id="regular-menu" className="relative">
+      <section id="Menu" className="relative">
         <div>
           <h2 className="text-yellow-950/85 text-3xl md:text-4xl font-bold text-center mb-8 mt-2">
             Our Regular Menu Pack
@@ -28,26 +28,26 @@ const RegularMenu = () => {
             ))}
           </ul>
 
-          <div className="mx-2 md:mx-20 pb-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+          <div className="mx-2 md:mx-20 pb-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-6">
             {images[activeMenu].map((image, ind) => (
-              <>
-                <div className="group relative rounded-lg overflow-hidden">
-                  <div
-                    key={ind}
-                    className="rounded-lg relative bg-cover bg-center aspect-square"
-                    style={{ backgroundImage: `url(${image})` }}
-                  >
-                    <p className="absolute bottom-0 bg-black/50 bg-opacity-50 text-white w-full text-center py-1">
-                      {itemName[activeMenu][ind]}
-                    </p>
-                  </div>
-                  <div className="absolute top-0 translate-y-full group-hover:translate-y-[10%] transition-transform duration-300 bg-black/80 aspect-square w-full">
-                    <h2 className="text-white p-2 text-xl">
-                      {itemName[activeMenu][ind]}
-                    </h2>
-                  </div>
+              <div
+                key={ind}
+                className="group relative rounded-lg overflow-hidden"
+              >
+                <div
+                  className="rounded-lg relative bg-cover bg-center aspect-square"
+                  style={{ backgroundImage: `url(${image})` }}
+                >
+                  <p className="absolute bottom-0 bg-black/50 bg-opacity-50 text-white w-full text-center py-1">
+                    {itemName[activeMenu][ind]}
+                  </p>
                 </div>
-              </>
+                <div className="absolute top-0 translate-y-full group-hover:translate-y-[10%] transition-transform duration-300 bg-black/80 aspect-square w-full">
+                  <h2 className="text-white p-2 text-xl">
+                    {itemName[activeMenu][ind]}
+                  </h2>
+                </div>
+              </div>
             ))}
           </div>
         </div>

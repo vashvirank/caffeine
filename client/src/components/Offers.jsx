@@ -2,27 +2,27 @@ import React from "react";
 
 const Offers = () => {
   const offerImages = [
-    "Images/co1.jpg",
-    "Images/co2.jpg",
-    "Images/co3.jpg",
-    "Images/co4.jpg",
-    "Images/co5.jpg",
-    "Images/co6.jpg",
-    "Images/co7.jpg",
+    "images/co1.jpg",
+    "images/co2.jpg",
+    "images/co3.jpg",
+    "images/co4.jpg",
+    "images/co5.jpg",
+    "images/co6.jpg",
+    "images/co7.jpg",
   ];
   return (
     <>
-      <section id="offers" className="py-16 bg-gray-50 dark:bg-neutral-900">
-        <div className="max-w-6xl mx-auto px-4">
+      <section id="Offers" className="py-8 bg-gray-50 dark:bg-neutral-900">
+        <div className="mx-auto md:px-5 lg:px-10">
           <h2 className="text-3xl font-bold text-center text-neutral-800 dark:text-white mb-12">
             Special Offers
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="flex justify-center flex-wrap gap-3 md:gap-6">
             {offerImages.map((src, index) => (
               <div
                 key={index}
-                className="relative overflow-hidden rounded-xl shadow-lg transform hover:scale-105 transition-all"
+                className="relative overflow-hidden rounded-xl shadow-lg transform hover:scale-105 transition-all w-6/13 md:w-3/10 lg:w-3/13"
               >
                 <img
                   src={src}
@@ -34,12 +34,6 @@ const Offers = () => {
                 </div>
               </div>
             ))}
-          </div>
-
-          <div className="flex justify-center space-x-3 mt-8">
-            <div className="w-3 h-3 rounded-full bg-neutral-400 transition-all hover:bg-neutral-600"></div>
-            <div className="w-3 h-3 rounded-full bg-neutral-400 transition-all hover:bg-neutral-600"></div>
-            <div className="w-3 h-3 rounded-full bg-neutral-400 transition-all hover:bg-neutral-600"></div>
           </div>
         </div>
       </section>

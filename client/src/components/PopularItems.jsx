@@ -16,7 +16,7 @@ const images = [
 
 const PopularItems = () => {
   return (
-    <section id="special-menu" className="px-2 md:px-5">
+    <section className="px-2 md:px-5">
       <h2 className="text-3xl md:text-4xl font-bold text-center mt-5 mb-2 text-yellow-950/85">
         Popular Items
       </h2>

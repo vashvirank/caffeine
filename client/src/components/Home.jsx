@@ -16,7 +16,7 @@ const Home = () => {
   };
   return (
     <>
-      <div>
+      <div id="Home">
         <section
           className={`${bg[activeCup]} bg-black pt-[6vh] md:pt-[9vh] min-h-screen flex flex-col md:flex-row bg-gradient-to-b  text-gray-200`}
         >

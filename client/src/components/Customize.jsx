@@ -1,141 +1,203 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  ChevronRight,
+  ChevronLeft,
+  ChevronsRight,
+  ChevronsLeft,
+  Plus,
+  Minus,
+  CircleCheckBig,
+  AlignLeft,
+  SquareCheck,
+  Square,
+} from "lucide-react";
 
 const Customize = () => {
   const ingredientsList = [
-    "espresso",
-    "caramel",
-    "whipped cream",
-    "brown sugar",
-    "white sugar",
-    "chocolate",
-    "milk",
+    "Espresso",
+    "Caramel",
+    "Cream",
+    "Brown sugar",
+    "White sugar",
+    "Chocolate",
+    "Milk",
     "Water",
   ];
+  const images = [
+    "/images/custom1.jpg",
+    "/images/custom2.jpg",
+    "/images/custom3.jpg",
+    "/images/custom4.jpg",
+    "/images/custom5.jpg",
+    "/images/custom6.jpg",
+    "/images/custom7.jpg",
+    "/images/custom8.jpg",
+  ];
+  const [nextClick, setNextClick] = useState(false);
+  const [showIngredients, setShowIngredients] = useState(false);
+  const panelRef = useRef(null);
+
   const [selected, setSelected] = useState([]);
-  const [sliderPage, setSliderPage] = useState(0);
-  const maxItems = 5;
-  const handleToggle = (item) => {
-    if (selected.includes(item)) {
-      setSelected(selected.filter((i) => i !== item));
+
+  const handleSelectionChange = (ind, add) => {
+    if (add) {
+      if (selected.length >= 5) {
+        alert("max 5 ingredients are allowed");
+        return;
+      }
+      if (!selected.includes(ind)) {
+        setSelected([...selected, ind]);
+      }
     } else {
-      if (selected.length >= maxItems) return;
-      setSelected([...selected, item]);
+      setSelected(selected.filter((item) => item !== ind));
     }
   };
 
-  const handleNext = () => {
-    setSliderPage((prev) => (prev === 0 ? 1 : 0));
-  };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (panelRef.current && !panelRef.current.contains(event.target)) {
+        setShowIngredients(false);
+      }
+    };
+
+    const handleScroll = () => {
+      setShowIngredients(false);
+    };
+
+    if (showIngredients) {
+      document.addEventListener("mousedown", handleClickOutside);
+      window.addEventListener("scroll", handleScroll);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [showIngredients]);
 
   return (
     <>
-      <section id="customize" className="py-16 bg-[#28140e]">
-        <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-16">
-          {/* Ingredient Selector */}
-          <div className="relative flex flex-col justify-center items-center rounded-full bg-gradient-to-r from-amber-400 to-amber-600 p-8 w-full lg:w-2/3 h-96 mb-8 lg:mb-0">
-            <div className="absolute inset-0 bg-neutral-900 rounded-full opacity-50"></div>
-
-            {/* Heading */}
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 z-10">
-              Choose Your Ingredients
+      <section
+        id="Customize"
+        className="bg-[#28140e] flex lg:min-h-screen relative"
+      >
+        <div
+          ref={panelRef}
+          className={`${
+            showIngredients ? "translate-x-0" : "-translate-x-full"
+          } md:translate-x-0 bg-yellow-900/60 backdrop-blur-[5px] absolute md:relative aspect-1/2 md:aspect-auto h-full md:h-auto z-1 md:w-2/8 rounded-r-full transition-transform overflow-hidden`}
+        >
+          <div className="h-full w-full text-white flex flex-col gap-2.5 pl-8 md:pl-5 lg:pl-10 pr-5 justify-center">
+            <h2 className="text-2xl font-bold">
+              <span className="text-orange-400">C</span>hoose your ingredients
             </h2>
-            <p className="text-lg text-white mb-6 z-10">Max 5 ingredients</p>
-
-            {/* Ingredient Dots */}
-            <div className="flex space-x-2 mb-6 z-10">
-              {Array.from({ length: maxItems }).map((_, i) => (
-                <div
-                  key={i}
-                  className={`w-[3vh] aspect-square rounded-full transition-all ${
-                    selected[i] ? "bg-amber-500" : "bg-[rgba(245,222,179,0.5)]"
-                  }`}
-                ></div>
+            <p className="text-orange-100 flex items-center gap-1">
+              <AlignLeft size={20} /> Max 5 ingredients
+            </p>
+            <div className="flex gap-2">
+              {[1, 2, 3, 4, 5].map((item, ind) => (
+                <div key={ind} className="bg-green-500/30 h-4 w-4 rounded-full">
+                  {selected.length > ind && (
+                    <CircleCheckBig size={16} className="text-green-300" />
+                  )}
+                </div>
               ))}
             </div>
-
-            {/* Checkboxes for Ingredients */}
-            <div className="space-y-4 z-10">
-              {ingredientsList.map((item, i) => (
-                <label
-                  key={i}
-                  className="flex items-center space-x-3 cursor-pointer"
-                >
-                  <span className="text-lg text-white">{item}</span>
-                  <input
-                    type="checkbox"
-                    checked={selected.includes(item)}
-                    onChange={() => handleToggle(item)}
-                    className="form-checkbox h-5 w-5 text-amber-500"
+            {ingredientsList.map((item, ind) => (
+              <label
+                key={ind}
+                onClick={() =>
+                  handleSelectionChange(ind, selected.includes(ind) ? 0 : 1)
+                }
+                className="flex gap-1.5 items-center"
+              >
+                {selected.includes(ind) ? (
+                  <SquareCheck
+                    strokeWidth={2}
+                    size={16}
+                    className="text-orange-50 bg-orange-200/30 rounded"
                   />
-                </label>
-              ))}
-            </div>
+                ) : (
+                  <Square strokeWidth={1} size={16} />
+                )}
+                {item}
+              </label>
+            ))}
+            <ChevronsLeft
+              size={30}
+              className="absolute md:hidden right-2 top-1/2 -translate-y-1/2 z-2 bg-white/10 text-white rounded-full p-1"
+              onClick={() => setShowIngredients(false)}
+            />
+          </div>
+        </div>
+        <div className="md:hidden flex items-center">
+          <ChevronsRight
+            size={30}
+            className="bg-white/10 text-white rounded-full p-1"
+            onClick={() => setShowIngredients(true)}
+          />
+        </div>
+        <div className="w-full md:w-6/8 flex flex-col">
+          <h2 className="text-4xl mt-10 mb-5 lg:mb-0 mr-6 md:mr-0 text-orange-300/30 font-bold scale-y-125 relative text-center ">
+            Customize menu
+          </h2>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5 items-center h-full px-3 md:px-10 pt-5">
+            {images.map((image, ind) =>
+              (!nextClick && ind < 4) || (nextClick && ind >= 4) ? (
+                <div key={ind} className="relative">
+                  <div
+                    className="relative bg-cover bg-center aspect-[3/4] rounded-full overflow-hidden"
+                    style={{ backgroundImage: `url(${image})` }}
+                  >
+                    <p className="absolute text-sm bottom-2 bg-yellow-900/20 text-yellow-950 backdrop-blur-[5px] rounded-full left-1/2 -translate-x-1/2 text-center px-2">
+                      {ingredientsList[ind]}
+                    </p>
+                  </div>
+                  <div>
+                    {selected.includes(ind) ? (
+                      <Minus
+                        onClick={() => handleSelectionChange(ind, 0)}
+                        size={20}
+                        strokeWidth={2.5}
+                        className="absolute bg-orange-200 text-yellow-950 top-3.5 right-3.5 p-0.5 rounded hover:scale-95 transition-transform"
+                      />
+                    ) : (
+                      <Plus
+                        onClick={() => handleSelectionChange(ind, 1)}
+                        size={20}
+                        strokeWidth={2.5}
+                        className="absolute bg-white text-yellow-950 top-3.5 right-3.5 p-0.5 rounded hover:scale-95 transition-transform"
+                      />
+                    )}
+                  </div>
+                </div>
+              ) : null
+            )}
           </div>
 
-          {/* Slider Content */}
-          <div>
-            {/* Slider Page 1 */}
-            <div
-              className={`transition-opacity duration-300 ${
-                sliderPage === 0
-                  ? "opacity-100"
-                  : "opacity-0 pointer-events-none"
+          <div className="relative my-5 lg:mb-20 flex gap-5 justify-center text-white">
+            <button
+              onClick={() => setNextClick(!nextClick)}
+              className={`py-1.5 w-28 rounded bg-yellow-900/80 flex items-center justify-center gap-1 ${
+                nextClick ? "pr-3" : "pl-3"
               }`}
             >
-              {[1, 2, 3, 4].map((i) => (
-                <div
-                  key={i}
-                  className={`card card${i} relative w-40 h-56 bg-orange-100 rounded-xl shadow-md flex items-end justify-center p-4 mb-4`}
-                >
-                  {i === 1 && (
-                    <div className="text-white font-bold text-xl">Espresso</div>
-                  )}
-                  <button className="mt-4 bg-amber-500 text-white rounded-lg py-2 px-4">
-                    Add
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            {/* Slider Page 2 */}
-            <div
-              className={`transition-opacity duration-300 ${
-                sliderPage === 1
-                  ? "opacity-100"
-                  : "opacity-0 pointer-events-none"
-              }`}
-            >
-              {[5, 6, 7, 8].map((i) => (
-                <div
-                  key={i}
-                  className={`card card${i} relative w-40 h-56 bg-orange-100 rounded-xl shadow-md flex items-end justify-center p-4 mb-4`}
-                >
-                  <button className="mt-4 bg-amber-500 text-white rounded-lg py-2 px-4">
-                    Add
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            {/* Navigation Buttons */}
-            <div className="flex justify-between mt-8">
-              <button
-                onClick={handleNext}
-                className="bg-amber-500 text-white py-2 px-6 rounded-lg transition-all hover:bg-amber-600"
-              >
-                {sliderPage === 0 ? "Next →" : "← Back"}
-              </button>
-              <button className="bg-green-500 text-white py-2 px-6 rounded-lg transition-all hover:bg-green-600">
-                Order
-              </button>
-            </div>
-
-            {/* Max Warning */}
-            {selected.length >= maxItems && (
-              <p className="mt-4 text-red-500 text-lg font-semibold">
-                You cannot select more than 5 items
-              </p>
-            )}
+              {nextClick ? (
+                <>
+                  <ChevronLeft size={20} />
+                  Previous
+                </>
+              ) : (
+                <>
+                  Next
+                  <ChevronRight size={20} />
+                </>
+              )}
+            </button>
           </div>
         </div>
       </section>
